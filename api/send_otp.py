@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify
 import smtplib
 from email.mime.text import MIMEText
 import os
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD', 'rnrubxmhfvhhcvrd')  # Default to y
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 
-@app.route('/send-otp', methods=['POST'])
+@app.route('/', methods=['POST'])
 def send_otp():
     try:
         data = request.get_json()
@@ -42,5 +42,5 @@ def send_otp():
         print(f'Failed to send OTP email: {e}')
         return jsonify({'error': f'Failed to send OTP: {str(e)}'}), 500
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+def handler(request):
+    return app
